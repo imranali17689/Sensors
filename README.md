@@ -6,7 +6,12 @@ Capstone project for real-time parking tracking at UTampa.
 
 This system uses sensors to track cars entering and exiting the parking garage, separating student and faculty counts.
 
-## Tech
+## Documentation
+
+- Requirements Document 1: [requirements.pdf](docs/requirements.pdf)
+- Presentation Slide 1: [presentation.pdf](docs/presentation.pdf)
+
+## Team and Responsibilities
 
 1. Hardware Developer – Entrance Sensor: Lailani/Jack
    Responsible for the entrance detection system
@@ -57,6 +62,9 @@ This system uses sensors to track cars entering and exiting the parking garage, 
    Implements auto-refresh behavior
    Displays real-time values (cars inside, spots left, status)
 
-## Team
+## Features
 
-Sayed, Jack, Anthony, Lailani, Dhwani, Khalil
+- Tracks cars entering and exiting the garage
+- Separates student and faculty parking counts
+- Real-time parking availability (planned)
+- Sensor-based detection with backend integration
