@@ -9,6 +9,8 @@ from dotenv import load_dotenv
 #Client is a type hint
 from supabase import create_client, Client
 
+
+
 #Load environement variables from the .env file into the memory 
 load_dotenv()
 
