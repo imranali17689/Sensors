@@ -8,4 +8,3 @@ class SensorEvent(BaseModel):
   timestamp: datetime
 
 
-
