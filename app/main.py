@@ -2,11 +2,15 @@ from fastapi import FastAPI
 
 from app.database.supabaseClient import getSupabase
 
+from app.routes.garageEvent import router
+
 app = FastAPI(
   title = "OpenSpot Backend API", 
   description = "Backend service for sensor ingestion and parking status",
   version = "1.0.0"
 )
+
+app.include_router(router)
 
 @app.get("/")
 def read_root():
@@ -25,3 +29,4 @@ def db_ping():
       "status": "error",
       "detail": str(e)
       }
+  
