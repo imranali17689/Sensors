@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ut-red: #C8102E;
+  --ut-navy: #0F1419;
+  --bg-page: #FDF6F6;
+}
+
+body {
+  background-color: var(--bg-page);
+  min-height: 100vh;
+}
