@@ -22,4 +22,12 @@ def recievesEvent(event: SensorEvent):
   }).execute()
 
   applyEvent(event)
-  return getStatus()
+  status = getStatus()
+
+  supabase.table("garage_status").update({
+    "occupied": status["occupied"],
+    "available": status["available"],
+    "capacity": status["capacity"]
+  }).eq("id", 1).execute()
+
+  return status
