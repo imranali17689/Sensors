@@ -3,7 +3,7 @@ from app.models.sensorEvent import SensorEvent
 from app.state.counterStore import applyEvent
 from app.state.counterStore import getStatus
 from app.database.supabaseClient import getSupabase
-
+from datetime import datetime
 
 router = APIRouter()
 
@@ -15,6 +15,9 @@ def callStatus():
 
 @router.post("/event")
 def recievesEvent(event: SensorEvent):
+  if event.timestamp is None:
+    event.timestamp = datetime.utcnow()
+  
   supabase.table("Events").insert({
     "side_id": event.side_id,
     "direction": event.direction,
