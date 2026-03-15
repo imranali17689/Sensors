@@ -22,4 +22,3 @@ def getStatus():
     "available": capacity - current_count,
     "capacity": capacity
   }
-  
