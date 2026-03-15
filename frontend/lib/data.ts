@@ -38,3 +38,15 @@ export const GARAGES_DATA: Record<Garage["id"], Garage> = {
 export function getGarageData(garageId: Garage["id"]): Garage {
   return GARAGES_DATA[garageId];
 }
+
+export async function getStatus() {
+  const response = await fetch("http://127.0.0.1:8000/status", {
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw new Error ("failed to fetch garage status");
+  }
+
+  return response.json();
+}
