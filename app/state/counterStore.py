@@ -15,7 +15,6 @@ def applyEvent(event):
   
     
 
-
 def getStatus():
   return {
     "occupied": current_count,
