@@ -3,6 +3,7 @@ from app.models.sensorEvent import SensorEvent
 from app.state.counterStore import applyEvent
 from app.state.counterStore import getStatus
 from app.database.supabaseClient import getSupabase
+from app.services.garageService import getGrandStudentParking
 from datetime import datetime
 
 router = APIRouter()
@@ -11,7 +12,7 @@ supabase = getSupabase()
 
 @router.get("/status")
 def callStatus():
-  return getStatus()
+  return getGrandStudentParking()
 
 @router.post("/event")
 def recievesEvent(event: SensorEvent):
