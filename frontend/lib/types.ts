@@ -2,6 +2,7 @@
  * Parking counts for one category (student or faculty) in a garage.
  */
 export type ParkingCounts = {
+  occupied: number,
   available: number;
   total: number;
 };

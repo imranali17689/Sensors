@@ -39,7 +39,7 @@ export function getGarageData(garageId: Garage["id"]): Garage {
   return GARAGES_DATA[garageId];
 }
 
-export async function getStatus() {
+export async function getGarageStatus() {
   const response = await fetch("http://127.0.0.1:8000/status", {
     cache: "no-store",
   });

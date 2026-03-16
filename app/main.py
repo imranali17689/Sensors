@@ -1,14 +1,27 @@
 from fastapi import FastAPI
-
 from app.database.supabaseClient import getSupabase
-
 from app.routes.garageEvent import router
+from fastapi.middleware.cors import CORSMiddleware
+from app.routes.garageEvent import router as garage_router
 
 app = FastAPI(
   title = "OpenSpot Backend API", 
   description = "Backend service for sensor ingestion and parking status",
   version = "1.0.0"
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(garage_router)
 
 app.include_router(router)
 

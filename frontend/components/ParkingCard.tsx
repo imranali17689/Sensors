@@ -19,6 +19,7 @@ export default function ParkingCard({
   accentColor,
 }: ParkingCardProps) {
   const status: ParkingStatus = getStatus(counts);
+  const occupied = counts.total - counts.available;
   const percent = getAvailablePercent(counts);
   const isRed = accentColor === "red";
 
@@ -45,6 +46,9 @@ export default function ParkingCard({
         >
           {counts.available}
         </span>
+        <p className="text-sm text-gray-600 mt-1">
+          Occupied Spots: {counts.occupied}
+        </p>
         <p className="text-sm text-gray-600 mt-1">
           Available Spots: {counts.available} / {counts.total}
         </p>
