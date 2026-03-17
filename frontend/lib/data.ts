@@ -9,24 +9,24 @@ export const GARAGES_DATA: Record<Garage["id"], Garage> = {
     id: "Grand",
     name: "Grand",
     parking: {
-      student: { available: 141, total: 200 },
-      faculty: { available: 26, total: 50 },
+      student: { occupied: 59, available: 141, total: 200 },
+      faculty: { occupied: 24, available: 26, total: 50 },
     },
   },
   Sykes: {
     id: "Sykes",
     name: "Sykes",
     parking: {
-      student: { available: 88, total: 150 },
-      faculty: { available: 12, total: 30 },
+      student: { occupied: 62, available: 88, total: 150 },
+      faculty: { occupied: 18, available: 12, total: 30 },
     },
   },
   West: {
     id: "West",
     name: "West",
     parking: {
-      student: { available: 45, total: 100 },
-      faculty: { available: 8, total: 20 },
+      student: { occupied: 55, available: 45, total: 100 },
+      faculty: { occupied: 12, available: 8, total: 20 },
     },
   },
 };
