@@ -40,12 +40,10 @@ export function getGarageData(garageId: Garage["id"]): Garage {
 }
 
 export async function getGarageStatus() {
-  const response = await fetch("http://127.0.0.1:8000/status", {
-    cache: "no-store",
-  });
+  const response = await fetch("http://127.0.0.1:8000/garage-status/grand/student");
 
   if (!response.ok) {
-    throw new Error ("failed to fetch garage status");
+    throw new Error("Failed to fetch garage status");
   }
 
   return response.json();

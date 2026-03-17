@@ -2,6 +2,8 @@ from fastapi import APIRouter
 from app.models.sensorEvent import SensorEvent
 from app.state.counterStore import applyEvent
 from app.state.counterStore import getStatus
+from app.services.garageService import getGrandStudentParking
+from app.services.garageService import updateGrandStudentParking
 
 
 
@@ -13,5 +15,8 @@ def callStatus():
 
 @router.post("/event")
 def recievesEvent(event: SensorEvent):
-  applyEvent(event)
-  return getStatus()
+  return updateGrandStudentParking(event.direction)
+
+@router.get("/garage-status/grand/student")
+def read_grand_student_status():
+  return getGrandStudentParking()

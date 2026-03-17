@@ -34,12 +34,16 @@ export default function DashboardPage() {
 
   useEffect(() => {
     async function loadGarageStatus() {
-      const data = await getGarageStatus();
-      setStatus(data);
-      setLastUpdated(new Date());
-    } 
-
-      loadGarageStatus();
+      try {
+        const data = await getGarageStatus();
+        console.log("Loaded into page:", data);
+        setStatus(data);
+        setLastUpdated(new Date());
+      } catch (error) {
+        console.error("Failed to fetch garage status:", error);
+      }
+    }
+    loadGarageStatus();
   }, []);
 
   const garage = getGarageData(selectedGarage);

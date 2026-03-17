@@ -27,7 +27,7 @@ def getSupabase() -> Client:
     raise RuntimeError(
       "SUPABASE_URL and SUPABASE_KEY must be set in your .env file"
     )
-  
+  print("SUPABASE_URL BEING USED:", supabase_url)
   #Creating the Supabase client using the URL and the API key
   supabase: Client = create_client(supabase_url, supabase_key)
 
