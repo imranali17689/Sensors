@@ -11,3 +11,6 @@ venv/
 
 #macOS system files
 .DS_Store
+
+frontend/
+node_modules/
