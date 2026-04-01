@@ -1,31 +1,31 @@
 /**
  * Top header card: logo, title, subtitle, and tagline.
- * Replace the logo circle with your official UT mark in public/ when available.
+ * Replace the logo block with your official UT mark in public/ when available.
  */
 export default function HeaderCard() {
   return (
     <header className="relative overflow-hidden rounded-xl border border-ut-border bg-white shadow-card">
       <div
-        className="absolute left-0 top-0 h-full w-1 bg-ut-red"
+        className="absolute left-0 top-0 h-full w-[3px] bg-ut-red"
         aria-hidden
       />
-      <div className="flex items-stretch gap-5 px-5 py-5 pl-6">
-        <div className="flex flex-shrink-0 flex-col items-center justify-center">
+      <div className="flex items-center gap-5 px-5 py-[1.125rem] pl-[1.375rem] sm:gap-6 sm:px-6 sm:py-5 sm:pl-6">
+        <div className="flex flex-shrink-0 items-center justify-center self-center">
           <div
-            className="flex h-[3.25rem] w-[3.25rem] items-center justify-center rounded-lg border border-ut-red/15 bg-ut-red text-[0.95rem] font-bold tracking-tight text-white shadow-sm"
+            className="flex h-[3.5rem] w-[3.5rem] items-center justify-center rounded-[10px] border border-ut-red/12 bg-ut-red text-[1rem] font-bold tracking-tight text-white shadow-[0_1px_2px_rgba(15,20,25,0.08)] sm:h-[3.625rem] sm:w-[3.625rem]"
             aria-hidden
           >
             UT
           </div>
         </div>
-        <div className="min-w-0 flex-1 border-l border-gray-100 pl-5">
-          <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-ut-muted">
+        <div className="min-w-0 flex-1 border-l border-gray-100/90 pl-5 sm:pl-6">
+          <p className="text-[0.625rem] font-semibold uppercase leading-none tracking-[0.14em] text-gray-500">
             University of Tampa
           </p>
-          <h1 className="mt-1 text-[1.375rem] font-semibold leading-tight tracking-tight text-gray-900">
+          <h1 className="mt-2 text-[1.3125rem] font-semibold leading-[1.2] tracking-[-0.02em] text-gray-900 sm:text-[1.375rem]">
             OpenSpot Parking
           </h1>
-          <p className="mt-2 text-sm leading-snug text-ut-muted">
+          <p className="mt-1.5 text-[0.8125rem] leading-snug text-ut-muted sm:text-sm">
             Real-time parking availability
           </p>
         </div>

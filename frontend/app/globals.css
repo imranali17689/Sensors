@@ -5,22 +5,37 @@
 :root {
   --ut-red: #c8102e;
   --ut-navy: #0f1419;
-  --ut-page: #f4f5f7;
+  --ut-page: #f3f4f6;
+  --ut-page-highlight: #fafafa;
 }
 
 body {
   min-height: 100vh;
   background-color: var(--ut-page);
-  background-image: linear-gradient(
-    180deg,
-    #fafafa 0%,
-    #f4f5f7 45%,
-    #f2f1ef 100%
-  );
+  /* Soft radial highlight + neutral vertical wash — subtle, official */
+  background-image:
+    radial-gradient(
+      ellipse 100% 55% at 50% -8%,
+      rgba(200, 16, 46, 0.045),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse 80% 40% at 100% 100%,
+      rgba(15, 20, 25, 0.03),
+      transparent 50%
+    ),
+    linear-gradient(
+      180deg,
+      var(--ut-page-highlight) 0%,
+      #f5f5f6 38%,
+      #f0f1f3 72%,
+      #eceef0 100%
+    );
 }
 
 @layer utilities {
   .focus-ring-ut {
-    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ut-red focus-visible:ring-offset-2 focus-visible:ring-offset-white;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ut-red focus-visible:ring-offset-2;
+    --tw-ring-offset-color: #f3f4f6;
   }
 }

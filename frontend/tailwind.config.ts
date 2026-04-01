@@ -23,6 +23,9 @@ const config: Config = {
       },
       maxWidth: {
         dashboard: "28rem",
+        "dashboard-md": "30rem",
+        "dashboard-lg": "34rem",
+        "dashboard-xl": "38rem",
       },
     },
   },
