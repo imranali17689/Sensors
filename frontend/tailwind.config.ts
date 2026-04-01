@@ -27,6 +27,15 @@ const config: Config = {
         "dashboard-lg": "34rem",
         "dashboard-xl": "38rem",
       },
+      keyframes: {
+        "page-in": {
+          from: { opacity: "0", transform: "translateY(8px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+      },
+      animation: {
+        "page-in": "page-in 0.28s ease-out both",
+      },
     },
   },
   plugins: [],
