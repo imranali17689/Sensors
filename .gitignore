@@ -1,0 +1,16 @@
+#Environment variables
+.env
+
+#Python cache
+__pycache__/
+*.pyc
+
+#Virtual environments
+venv/
+.venv/
+
+#macOS system files
+.DS_Store
+
+frontend/
+node_modules/
