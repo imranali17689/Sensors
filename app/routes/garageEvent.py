@@ -2,9 +2,16 @@ from fastapi import APIRouter
 from app.models.sensorEvent import SensorEvent
 from app.state.counterStore import applyEvent
 from app.state.counterStore import getStatus
+<<<<<<< HEAD
 from app.database.supabaseClient import getSupabase
 from app.services.garageService import getGrandStudentParking
 from datetime import datetime
+=======
+from app.services.garageService import getGrandStudentParking
+from app.services.garageService import updateGrandStudentParking
+
+
+>>>>>>> origin/sayeds-branch
 
 router = APIRouter()
 
@@ -16,6 +23,7 @@ def callStatus():
 
 @router.post("/event")
 def recievesEvent(event: SensorEvent):
+<<<<<<< HEAD
   if event.timestamp is None:
     event.timestamp = datetime.utcnow()
   
@@ -35,3 +43,10 @@ def recievesEvent(event: SensorEvent):
   }).eq("id", 1).execute()
 
   return status
+=======
+  return updateGrandStudentParking(event.direction)
+
+@router.get("/garage-status/grand/student")
+def read_grand_student_status():
+  return getGrandStudentParking()
+>>>>>>> origin/sayeds-branch
