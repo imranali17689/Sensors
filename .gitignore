@@ -9,10 +9,10 @@ __pycache__/
 venv/
 .venv/
 
-#macOS system files
+# macOS system files
 .DS_Store
 
-frontend/
+# Repo root (if you add a root package.json later)
 node_modules/
 # Dependencies
 node_modules/
