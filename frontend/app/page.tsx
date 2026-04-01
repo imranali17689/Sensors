@@ -50,27 +50,29 @@ export default function DashboardPage() {
   const lastUpdatedString = lastUpdated ? formatTime(lastUpdated) : "Loading..."
   
   return (
-    <main className="min-h-screen flex flex-col items-center px-4 py-6 pb-10">
-      <div className="w-full max-w-[400px] flex flex-col gap-5">
+    <main className="flex min-h-screen flex-col items-center px-4 py-8 pb-12 sm:px-6 sm:py-10 md:py-12">
+      <div className="flex w-full max-w-dashboard flex-col gap-6 sm:gap-7 md:max-w-xl md:gap-8">
         <HeaderCard />
         <GarageTabs
           selectedGarage={selectedGarage}
           onSelect={handleGarageSelect}
         />
-        <ParkingCard
-          title="Student Parking"
-          counts={{
-            occupied: status.occupied,
-            available: status.available,
-            total: status.capacity
-          }}
-          accentColor="red"
-        />
-        <ParkingCard
-          title="Faculty Parking"
-          counts={garage.parking.faculty}
-          accentColor="navy"
-        />
+        <div className="flex flex-col gap-5 sm:gap-6">
+          <ParkingCard
+            title="Student Parking"
+            counts={{
+              occupied: status.occupied,
+              available: status.available,
+              total: status.capacity,
+            }}
+            accentColor="red"
+          />
+          <ParkingCard
+            title="Faculty Parking"
+            counts={garage.parking.faculty}
+            accentColor="navy"
+          />
+        </div>
         <LastUpdatedCard timeString={lastUpdatedString} />
         <TrendsButton />
       </div>

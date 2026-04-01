@@ -8,31 +8,39 @@ type GarageTabsProps = {
 const TABS: GarageId[] = ["Grand", "Sykes", "West"];
 
 /**
- * Tab bar to switch between Grand, Sykes, and West garages.
- * Active tab: red background, white text. Inactive: light background, dark text.
+ * Segmented control for Grand / Sykes / West garages.
  */
 export default function GarageTabs({ selectedGarage, onSelect }: GarageTabsProps) {
   return (
-    <div className="flex gap-2 p-1 bg-gray-100 rounded-xl">
-      {TABS.map((garage) => {
-        const isActive = selectedGarage === garage;
-        return (
-          <button
-            key={garage}
-            type="button"
-            onClick={() => onSelect(garage)}
-            className={`
-              flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-colors
-              ${isActive
-                ? "bg-ut-red text-white shadow"
-                : "bg-white text-gray-800 hover:bg-gray-50"
-              }
-            `}
-          >
-            {garage}
-          </button>
-        );
-      })}
+    <div
+      className="rounded-lg border border-ut-border bg-white p-1 shadow-sm"
+      role="tablist"
+      aria-label="Select garage"
+    >
+      <div className="grid grid-cols-3 gap-0.5">
+        {TABS.map((garage) => {
+          const isActive = selectedGarage === garage;
+          return (
+            <button
+              key={garage}
+              type="button"
+              role="tab"
+              aria-selected={isActive}
+              onClick={() => onSelect(garage)}
+              className={`
+                rounded-md px-3 py-2.5 text-center text-sm font-medium transition-colors duration-150
+                focus-ring-ut
+                ${isActive
+                  ? "bg-ut-red text-white shadow-sm"
+                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                }
+              `}
+            >
+              {garage}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }

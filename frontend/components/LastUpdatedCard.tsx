@@ -5,14 +5,17 @@ type LastUpdatedCardProps = {
 };
 
 /**
- * Small card showing last updated time with a clock icon.
+ * Slim metadata row for last refresh time.
  */
 export default function LastUpdatedCard({ timeString }: LastUpdatedCardProps) {
   return (
-    <div className="bg-white rounded-xl shadow-sm px-4 py-3 flex items-center gap-2">
-      <Clock className="w-4 h-4 text-gray-500 flex-shrink-0" aria-hidden />
-      <span className="text-sm text-gray-600">
-        Last Updated: <span className="font-medium text-gray-800">{timeString}</span>
+    <div className="flex items-center justify-center gap-2 border-t border-ut-border/80 pt-5 text-xs text-ut-muted">
+      <Clock className="h-3.5 w-3.5 flex-shrink-0 text-gray-400" aria-hidden />
+      <span>
+        Last updated{" "}
+        <time className="font-semibold tabular-nums text-gray-700">
+          {timeString}
+        </time>
       </span>
     </div>
   );

@@ -1,14 +1,13 @@
 /**
- * Full-width red button for "View Parking Trends".
- * Add onClick later to navigate to trends page or open modal.
+ * Primary CTA for parking trends (navigation can be wired later).
  */
 export default function TrendsButton() {
   return (
     <button
       type="button"
-      className="w-full py-4 rounded-xl bg-ut-red text-white font-semibold text-base shadow-md hover:bg-ut-red/90 active:bg-ut-red/80 transition-colors"
+      className="focus-ring-ut w-full rounded-lg border border-ut-red/20 bg-ut-red px-4 py-3.5 text-[0.9375rem] font-semibold text-white shadow-sm transition-colors duration-150 hover:bg-ut-red-dark hover:shadow active:bg-[#8F0B22]"
     >
-      View Parking Trends
+      View parking trends
     </button>
   );
 }
