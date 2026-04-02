@@ -29,3 +29,11 @@ export function formatTime(date: Date): string {
     hour12: true,
   });
 }
+
+export function getTrendColor(value: number): string {
+  if (value > 80) return "bg-[#2FAE66]";
+  if (value > 60) return "bg-[#7ED957]";
+  if (value > 40) return "bg-[#FACC15]";
+  if (value > 20) return "bg-[#FB923C]";
+  return "bg-[#EF4444]";
+}

@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import HeaderCard from "@/components/HeaderCard";
 import GarageTabs from "@/components/GarageTabs";
-import ParkingCard from "@/components/ParkingCard";
+import HeaderCard from "@/components/HeaderCard";
 import LastUpdatedCard from "@/components/LastUpdatedCard";
+import ParkingCard from "@/components/ParkingCard";
 import TrendsButton from "@/components/TrendsButton";
 import { getGarageData } from "@/lib/data";
-import { formatTime } from "@/lib/utils";
 import type { GarageId } from "@/lib/types";
+import { formatTime } from "@/lib/utils";
+import { useCallback, useState } from "react";
 
 /**
  * Main dashboard page. Selected garage is kept in state; switching tabs
