@@ -75,6 +75,9 @@ def app_callback(element, buffer, user_data):
         label = detection.get_label()
         confidence = detection.get_confidence()
 
+        if label != "car":
+            continue
+
         if label == PERSON_LABEL:
             x1, x2 = get_bbox_x_positions(detection)
             center_x = get_center_x(x1, x2)
@@ -88,7 +91,7 @@ def app_callback(element, buffer, user_data):
                     direction=direction,
                     track_id=track_id,
                     object_type=label,
-                    count=count,
+                    confidence=confidence,
                 )
 
             detection_count += 1
