@@ -18,18 +18,14 @@ def callStatus():
 def recievesEvent(event: SensorEvent):
   supabase = getSupabase()
 
-  supabase.table("Events").insert({
-  "direction": event.direction,
-  "timestamp": event.timestamp.isoformat()
-  }).execute()
-
-  # supabase.table("Events").insert({
-  #   "object_type": event.object_type,
-  #   "direction": event.direction,
-  #   "confidence": event.confidence,
-  #   "track_id": event.track_id,
-  #   "timestamp": event.timestamp.isoformat()
-  # }).execute()
+  if event.object_type == "car":
+    supabase.table("Events").insert({
+      "object_type": event.object_type,
+      "direction": event.direction,
+      "confidence": event.confidence,
+      "track_id": event.track_id,
+      "timestamp": event.timestamp.isoformat()
+    }).execute()
 
   applyEvent(event)
   status = getStatus()

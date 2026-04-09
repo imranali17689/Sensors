@@ -20,8 +20,8 @@ app.add_middleware(
         "https://sensors-ivory.vercel.app",
     ],
     allow_credentials=True,
-    allow_methods=[""],
-    allow_headers=[""],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(garage_router)

@@ -4,16 +4,19 @@ capacity = 150
 
 
 def applyEvent(event):
-  global current_count 
-  
-  if event.direction == "IN":
-    if current_count < capacity:
-      current_count += 1
+    global current_count
 
-  elif event.direction == "OUT":
-    if current_count > 0:
-      current_count -= 1
+    
+    if event.object_type != "car":
+        return getStatus()
+
   
+    if event.direction == "IN":
+        current_count = min(capacity, current_count + 1)
+    elif event.direction == "OUT":
+        current_count = max(0, current_count - 1)
+
+    return getStatus()
     
 
 
