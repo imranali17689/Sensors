@@ -1,5 +1,8 @@
 import type { Garage } from "./types";
 
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ?? "http://127.0.0.1:8000";
+
 /**
  * Mock data for all three garages.
  * Replace with API calls later (e.g. fetch from your backend).
@@ -40,7 +43,9 @@ export function getGarageData(garageId: Garage["id"]): Garage {
 }
 
 export async function getGarageStatus() {
-  const response = await fetch("http://127.0.0.1:8000/garage-status/grand/student");
+  const response = await fetch(
+    `${API_BASE}/garage-status/grand/student`
+  );
 
   if (!response.ok) {
     throw new Error("Failed to fetch garage status");
