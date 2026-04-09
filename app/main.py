@@ -17,7 +17,7 @@ app.add_middleware(
         "http://127.0.0.1:3000/",
         "http://localhost:3002/",
         "http://127.0.0.1:3002/",
-        "https://sensors-ivory.vercel.app/",
+        "https://sensors-ivory.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=[""],
