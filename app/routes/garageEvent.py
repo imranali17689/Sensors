@@ -17,7 +17,7 @@ def callStatus():
 @router.post("/event")
 def recievesEvent(event: SensorEvent):
   supabase = getSupabase()
-  
+
   supabase.table("Events").insert({
   "direction": event.direction,
   "timestamp": event.timestamp.isoformat()
@@ -41,3 +41,7 @@ def recievesEvent(event: SensorEvent):
   }).eq("id", 1).execute()
 
   return status
+
+@router.get("/garage-status/grand/student")
+def read_grand_student_status():
+  return getGrandStudentParking()
