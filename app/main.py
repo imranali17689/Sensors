@@ -3,9 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.database.supabaseClient import getSupabase
 
-from app.routes.garageEvent import router as event_router
 from app.routes.garageEvent import router as garage_router
-
 
 app = FastAPI(
   title = "OpenSpot Backend API", 
@@ -24,7 +22,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(event_router)
 app.include_router(garage_router)
 
 @app.get("/")

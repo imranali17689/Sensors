@@ -1,52 +1,38 @@
-from fastapi import APIRouter
-from app.models.sensorEvent import SensorEvent
-from app.state.counterStore import applyEvent
-from app.state.counterStore import getStatus
-<<<<<<< HEAD
-from app.database.supabaseClient import getSupabase
-from app.services.garageService import getGrandStudentParking
 from datetime import datetime
-=======
+
+from fastapi import APIRouter
+
+from app.database.supabaseClient import getSupabase
+from app.models.sensorEvent import SensorEvent
 from app.services.garageService import getGrandStudentParking
 from app.services.garageService import updateGrandStudentParking
-
-
->>>>>>> origin/sayeds-branch
 
 router = APIRouter()
 
 supabase = getSupabase()
 
+
 @router.get("/status")
 def callStatus():
-  return getGrandStudentParking()
+    return getGrandStudentParking()
+
 
 @router.post("/event")
 def recievesEvent(event: SensorEvent):
-<<<<<<< HEAD
-  if event.timestamp is None:
-    event.timestamp = datetime.utcnow()
-  
-  supabase.table("Events").insert({
-    "side_id": event.side_id,
-    "direction": event.direction,
-    "timestamp": event.timestamp.isoformat()
-  }).execute()
+    if event.timestamp is None:
+        event.timestamp = datetime.utcnow()
 
-  applyEvent(event)
-  status = getStatus()
+    supabase.table("Events").insert(
+        {
+            "side_id": event.side_id,
+            "direction": event.direction,
+            "timestamp": event.timestamp.isoformat(),
+        }
+    ).execute()
 
-  supabase.table("garage_status").update({
-    "occupied": status["occupied"],
-    "available": status["available"],
-    "capacity": status["capacity"]
-  }).eq("id", 1).execute()
+    return updateGrandStudentParking(event.direction)
 
-  return status
-=======
-  return updateGrandStudentParking(event.direction)
 
 @router.get("/garage-status/grand/student")
 def read_grand_student_status():
-  return getGrandStudentParking()
->>>>>>> origin/sayeds-branch
+    return getGrandStudentParking()
