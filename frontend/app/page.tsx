@@ -9,24 +9,20 @@ import LastUpdatedCard from "@/components/LastUpdatedCard";
 import TrendsButton from "@/components/TrendsButton";
 import { getGarageData, getGarageStatus } from "@/lib/data";
 import { formatTime } from "@/lib/utils";
-import type { GarageId } from "@/lib/types";
-
-
+import type { GarageId, ParkingCounts } from "@/lib/types";
 
 /**
- * Main dashboard page. Selected garage is kept in state; switching tabs
- * updates the displayed parking data and last updated time.
- * Later: replace getGarageData(selectedGarage) with an API call.
+ * Main dashboard page. Grand student counts can come from getGarageStatus();
+ * other garages and faculty use mock data from getGarageData.
  */
 export default function DashboardPage() {
   const [selectedGarage, setSelectedGarage] = useState<GarageId>("Grand");
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
-  const [status, setStatus] = useState ({
-    occupied: 0,
-    available: 0,
-    capacity: 0
-  });
+  /** Live Grand/student row from backend; null until fetch succeeds or if fetch failed (then mock is used). */
+  const [liveGrandStudent, setLiveGrandStudent] = useState<ParkingCounts | null>(
+    null
+  );
 
   const handleGarageSelect = useCallback((garage: GarageId) => {
     setSelectedGarage(garage);
@@ -34,22 +30,41 @@ export default function DashboardPage() {
   }, []);
 
   useEffect(() => {
-    async function loadGarageStatus() {
+    let cancelled = false;
+
+    async function loadGrandStudentStatus() {
       try {
         const data = await getGarageStatus();
-        console.log("Loaded into page:", data);
-        setStatus(data);
+        if (cancelled) return;
+        setLiveGrandStudent({
+          occupied: data.occupied,
+          available: data.available,
+          total: data.capacity,
+        });
         setLastUpdated(new Date());
       } catch (error) {
-        console.error("Failed to fetch garage status:", error);
+        if (!cancelled) {
+          console.error("Failed to fetch garage status:", error);
+          setLiveGrandStudent(null);
+        }
       }
     }
-    loadGarageStatus();
+
+    loadGrandStudentStatus();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const garage = getGarageData(selectedGarage);
-  const lastUpdatedString = lastUpdated ? formatTime(lastUpdated) : "Loading..."
-  
+
+  const studentCounts: ParkingCounts =
+    selectedGarage === "Grand" && liveGrandStudent !== null
+      ? liveGrandStudent
+      : garage.parking.student;
+
+  const lastUpdatedString = lastUpdated ? formatTime(lastUpdated) : "Loading...";
+
   return (
     <DashboardShell>
       <HeaderCard />
@@ -60,11 +75,7 @@ export default function DashboardPage() {
       <div className="flex flex-col gap-4 sm:gap-5">
         <ParkingCard
           title="Student Parking"
-          counts={{
-            occupied: status.occupied,
-            available: status.available,
-            total: status.capacity,
-          }}
+          counts={studentCounts}
           accentColor="red"
         />
         <ParkingCard
