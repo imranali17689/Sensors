@@ -82,7 +82,7 @@ def app_callback(element, buffer, user_data):
             x1, x2 = get_bbox_x_positions(detection)
             center_x = get_center_x(x1, x2)
 
-            direction, count = update_direction(center_x)
+            direction, count = update_direction(center_x, track_id)
 
             track_id = get_track_id(detection)
 
