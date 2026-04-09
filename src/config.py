@@ -1,6 +1,6 @@
-BACKEND_URL = "http://YOUR_BACKEND_IP:YOUR_PORT/events"
+BACKEND_URL = "https://your-deployed-backend-url.com/event"
 DEVICE_NAME = "garagecam-rpi"
-ENABLE_POSTS = False
+ENABLE_POSTS = True
 POST_TIMEOUT = 5
 
 FRAME_WIDTH = 640
