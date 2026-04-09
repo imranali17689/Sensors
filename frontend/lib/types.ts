@@ -2,7 +2,7 @@
  * Parking counts for one category (student or faculty) in a garage.
  */
 export type ParkingCounts = {
-  occupied: number,
+  occupied: number;
   available: number;
   total: number;
 };
@@ -13,6 +13,15 @@ export type ParkingCounts = {
 export type GarageParking = {
   student: ParkingCounts;
   faculty: ParkingCounts;
+};
+
+/**
+ * Status returned by the backend /status endpoint.
+ */
+export type GarageStatusResponse = {
+  occupied: number;
+  available: number;
+  capacity: number;
 };
 
 /**

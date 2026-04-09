@@ -1,4 +1,4 @@
-import type { Garage } from "./types";
+import type { Garage, GarageStatusResponse } from "./types";
 
 /**
  * Mock data for all three garages.
@@ -39,8 +39,14 @@ export function getGarageData(garageId: Garage["id"]): Garage {
   return GARAGES_DATA[garageId];
 }
 
-export async function getGarageStatus() {
-  const response = await fetch("http://127.0.0.1:8000/status", {
+export async function getGarageStatus(): Promise<GarageStatusResponse> {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+  if (!apiUrl) {
+    throw new Error("NEXT_PUBLIC_API_URL is not set");
+  }
+
+  const response = await fetch(`${apiUrl}/status`, {
     cache: "no-store",
   });
 

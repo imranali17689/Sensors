@@ -8,7 +8,7 @@ import LastUpdatedCard from "@/components/LastUpdatedCard";
 import TrendsButton from "@/components/TrendsButton";
 import { getGarageData, getGarageStatus } from "@/lib/data";
 import { formatTime } from "@/lib/utils";
-import type { GarageId } from "@/lib/types";
+import type { GarageId, GarageStatusResponse } from "@/lib/types";
 
 
 
@@ -21,7 +21,7 @@ export default function DashboardPage() {
   const [selectedGarage, setSelectedGarage] = useState<GarageId>("Grand");
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
-  const [status, setStatus] = useState ({
+  const [status, setStatus] = useState<GarageStatusResponse> ({
     occupied: 0,
     available: 0,
     capacity: 0
@@ -33,18 +33,23 @@ export default function DashboardPage() {
   }, []);
 
   useEffect(() => {
-    async function loadGarageStatus() {
-      try {
-        const data = await getGarageStatus();
-        console.log("Loaded into page:", data);
-        setStatus(data);
-        setLastUpdated(new Date());
-      } catch (error) {
-        console.error("Failed to fetch garage status:", error);
-      }
+  async function loadGarageStatus() {
+    try {
+      const data = await getGarageStatus();
+      console.log("Loaded into page:", data);
+      setStatus(data);
+      setLastUpdated(new Date());
+    } catch (error) {
+      console.error("Failed to fetch garage status:", error);
     }
-    loadGarageStatus();
-  }, []);
+  }
+
+  loadGarageStatus();
+
+  const interval = setInterval(loadGarageStatus, 5000);
+
+  return () => clearInterval(interval);
+}, []);
 
   const garage = getGarageData(selectedGarage);
   const lastUpdatedString = lastUpdated ? formatTime(lastUpdated) : "Loading..."
