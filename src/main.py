@@ -77,35 +77,66 @@ def app_callback(element, buffer, user_data):
 
         print(f"label={label}, confidence={confidence}")
 
-        # if label != "car":
-        #     continue
-
         if label != PERSON_LABEL:
             continue
 
         track_id = get_track_id(detection)
-
         print(f"track_id={track_id}")
 
         x1, x2 = get_bbox_x_positions(detection)
         center_x = get_center_x(x1, x2)
-
         print(f"center_x={center_x}")
 
-        direction, count = update_direction(center_x, track_id)
+        if not hasattr(user_data, "posted_tracks"):
+            user_data.posted_tracks = set()
 
-        print(f"direction={direction}, count={count}")
-        
-        if direction is not None:
-            print(f"DEMO EVENT -> detected person, sending as car, direction={direction}, track_id={track_id}")
+        if track_id not in user_data.posted_tracks:
+            user_data.posted_tracks.add(track_id)
+            print(f"DEMO EVENT -> detected person, sending as car, direction=IN, track_id={track_id}")
             post_event(
-                direction=direction,
+                direction="IN",
                 track_id=track_id,
-                object_type="car",   # pretend person is a car
+                object_type="car",
                 confidence=confidence,
             )
 
         detection_count += 1
+
+    # for detection in detections:
+    #     label = detection.get_label()
+    #     confidence = detection.get_confidence()
+
+    #     print(f"label={label}, confidence={confidence}")
+
+    #     # if label != "car":
+    #     #     continue
+
+    #     if label != PERSON_LABEL:
+    #         continue
+
+    #     track_id = get_track_id(detection)
+
+    #     print(f"track_id={track_id}")
+
+    #     x1, x2 = get_bbox_x_positions(detection)
+    #     center_x = get_center_x(x1, x2)
+
+    #     print(f"center_x={center_x}")
+
+    #     direction, count = update_direction(center_x, track_id)
+
+    #     print(f"direction={direction}, count={count}")
+
+    #     if direction is not None:
+    #         print(f"DEMO EVENT -> detected person, sending as car, direction={direction}, track_id={track_id}")
+    #         post_event(
+    #             direction=direction,
+    #             track_id=track_id,
+    #             object_type="car",   # pretend person is a car
+    #             confidence=confidence,
+    #         )
+
+    #     detection_count += 1
 
         # if label == PERSON_LABEL:
         #     x1, x2 = get_bbox_x_positions(detection)
