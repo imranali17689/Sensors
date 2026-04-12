@@ -88,7 +88,7 @@ def app_callback(element, buffer, user_data):
         confidence = detection.get_confidence()
 
         print(f"DEBUG: label={label}, confidence={confidence}")
-        
+
         if label != PERSON_LABEL:
             continue
 
@@ -99,6 +99,7 @@ def app_callback(element, buffer, user_data):
         center_x = get_center_x(x1, x2)
 
         direction, count = update_direction(center_x, track_id)
+        print(f"DEBUG: track_id={track_id}, center_x={center_x}, direction={direction}")
 
         if direction is not None and track_id not in user_data.posted_tracks:
             user_data.posted_tracks.add(track_id)
