@@ -86,7 +86,6 @@ def app_callback(element, buffer, user_data):
     for detection in detections:
         label = detection.get_label()
         confidence = detection.get_confidence()
-        print(f"DEBUG: label={label}, confidence={confidence}")
 
         if label != PERSON_LABEL:
             continue
@@ -101,9 +100,7 @@ def app_callback(element, buffer, user_data):
 
         if direction is not None and track_id not in user_data.posted_tracks:
             user_data.posted_tracks.add(track_id)
-
-            print(f"DEMO EVENT -> detected person, direction={direction}, track_id={track_id}")
-
+            print(f"EVENT -> direction={direction}, track_id={track_id}, count={count}")
             post_event(
                 direction=direction,
                 track_id=track_id,
@@ -113,7 +110,7 @@ def app_callback(element, buffer, user_data):
 
         detection_count += 1
 
-        # Remove tracks that are no longer visible (so they can trigger again later)
+    # outside the loop
     user_data.posted_tracks = {
         tid for tid in user_data.posted_tracks if tid in active_track_ids
     }
