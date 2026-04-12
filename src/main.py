@@ -53,7 +53,9 @@ class user_app_callback_class(app_callback_class):
 # User-defined callback function
 # -----------------------------------------------------------------------------------------------
 def app_callback(element, buffer, user_data):
+    print("DEBUG: callback called")
     if buffer is None:
+        print("DEBUG: buffer is None")
         hailo_logger.warning("Received None buffer.")
         return
 
@@ -234,6 +236,7 @@ def app_callback(element, buffer, user_data):
 
 
 def main():
+    print("DEBUG: main started")
     hailo_logger.info("Starting Detection App.")
     user_data = user_app_callback_class()
     app = GStreamerDetectionApp(app_callback, user_data)
