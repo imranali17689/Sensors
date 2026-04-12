@@ -74,20 +74,15 @@ def update_direction(center_x, track_id):
     else:
         current_zone = "middle"
 
-    print(f"[DIR] track_id={track_id}, current_zone={current_zone}")
-
     if track_id not in zone_state:
         zone_state[track_id] = current_zone
         crossed[track_id] = False
-        print(f"[DIR] new track {track_id}, start zone={current_zone}")
         return None, count
 
     prev_zone = zone_state[track_id]
-    print(f"[DIR] prev_zone={prev_zone}, crossed={crossed[track_id]}")
 
     if prev_zone in ["left", "right"] and current_zone == "middle":
         crossed[track_id] = True
-        print(f"[DIR] track {track_id} crossed middle")
 
     elif prev_zone == "left" and crossed[track_id] and current_zone == "right":
         count += 1
@@ -105,7 +100,6 @@ def update_direction(center_x, track_id):
 
     zone_state[track_id] = current_zone
     return None, count
-
 
 def get_count():
     return count

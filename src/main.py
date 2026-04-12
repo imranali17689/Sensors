@@ -70,8 +70,9 @@ def app_callback(element, buffer, user_data):
     detections = roi.get_objects_typed(hailo.HAILO_DETECTION)
 
     detection_count = 0
-    person_detected_this_frame = False
+    active_track_ids = set()
 
+    # store tracks we already posted for
     if not hasattr(user_data, "posted_tracks"):
         user_data.posted_tracks = set()
 
@@ -79,29 +80,89 @@ def app_callback(element, buffer, user_data):
         label = detection.get_label()
         confidence = detection.get_confidence()
 
+        # Only process people (demo mode: person acts as car)
         if label != PERSON_LABEL:
             continue
 
-        person_detected_this_frame = True
-
         track_id = get_track_id(detection)
-        x1, x2 = get_bbox_x_positions(detection)
-        center_x = get_center_x(x1, x2)
+        active_track_ids.add(track_id)
 
-        if track_id not in user_data.posted_tracks:
-            user_data.posted_tracks.add(track_id)
-            print(f"DEMO EVENT -> detected person, sending as car, direction=IN, track_id={track_id}")
-            post_event(
-                direction="IN",
-                track_id=track_id,
-                object_type="car",
-                confidence=confidence,
-            )
+        detection_count = 0
+        active_track_ids = set()
 
-        detection_count += 1
+         # store tracks we already posted for
+        if not hasattr(user_data, "posted_tracks"):
+            user_data.posted_tracks = set()
 
-    if not person_detected_this_frame:
-        user_data.posted_tracks.clear()
+        for detection in detections:
+            label = detection.get_label()
+            confidence = detection.get_confidence()
+
+            # Only process people (demo mode: person acts as car)
+            if label != PERSON_LABEL:
+                continue
+
+            track_id = get_track_id(detection)
+            active_track_ids.add(track_id)
+
+            x1, x2 = get_bbox_x_positions(detection)
+            center_x = get_center_x(x1, x2)
+
+            # Determine direction based on crossing logic
+            direction, count = update_direction(center_x, track_id)
+
+            # Only send event once per crossing per track
+            if direction is not None and track_id not in user_data.posted_tracks:
+                user_data.posted_tracks.add(track_id)
+
+                print(f"DEMO EVENT -> detected person, sending as car, direction={direction}, track_id={track_id}")
+
+                post_event(
+                    direction=direction,
+                    track_id=track_id,
+                    object_type="car",
+                    confidence=confidence,
+                )
+            detection_count += 1
+
+        # Remove tracks that are no longer visible (so they can trigger again later)
+        user_data.posted_tracks = {
+            tid for tid in user_data.posted_tracks if tid in active_track_ids
+        }
+
+    # detection_count = 0
+    # person_detected_this_frame = False
+
+    # if not hasattr(user_data, "posted_tracks"):
+    #     user_data.posted_tracks = set()
+
+    # for detection in detections:
+    #     label = detection.get_label()
+    #     confidence = detection.get_confidence()
+
+    #     if label != PERSON_LABEL:
+    #         continue
+
+    #     person_detected_this_frame = True
+
+    #     track_id = get_track_id(detection)
+    #     x1, x2 = get_bbox_x_positions(detection)
+    #     center_x = get_center_x(x1, x2)
+
+    #     if track_id not in user_data.posted_tracks:
+    #         user_data.posted_tracks.add(track_id)
+    #         print(f"DEMO EVENT -> detected person, sending as car, direction=IN, track_id={track_id}")
+    #         post_event(
+    #             direction="IN",
+    #             track_id=track_id,
+    #             object_type="car",
+    #             confidence=confidence,
+    #         )
+
+    #     detection_count += 1
+
+    # if not person_detected_this_frame:
+    #     user_data.posted_tracks.clear()
 
     # for detection in detections:
     #     label = detection.get_label()
