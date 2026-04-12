@@ -87,6 +87,8 @@ def app_callback(element, buffer, user_data):
         label = detection.get_label()
         confidence = detection.get_confidence()
 
+        print(f"DEBUG: label={label}, confidence={confidence}")
+        
         if label != PERSON_LABEL:
             continue
 
