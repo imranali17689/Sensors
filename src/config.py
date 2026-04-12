@@ -1,4 +1,4 @@
-BACKEND_URL = "https://your-deployed-backend-url.com/event"
+BACKEND_URL = " https://sensors-g2qn.onrender.com/events"
 DEVICE_NAME = "garagecam-rpi"
 ENABLE_POSTS = True
 POST_TIMEOUT = 5
