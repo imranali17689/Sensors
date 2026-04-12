@@ -114,9 +114,9 @@ def app_callback(element, buffer, user_data):
         detection_count += 1
 
         # Remove tracks that are no longer visible (so they can trigger again later)
-        user_data.posted_tracks = {
-            tid for tid in user_data.posted_tracks if tid in active_track_ids
-        }
+    user_data.posted_tracks = {
+        tid for tid in user_data.posted_tracks if tid in active_track_ids
+    }
 
     # detection_count = 0
     # person_detected_this_frame = False
