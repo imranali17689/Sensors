@@ -75,6 +75,8 @@ def app_callback(element, buffer, user_data):
         label = detection.get_label()
         confidence = detection.get_confidence()
 
+        print(f"label={label}, confidence={confidence}")
+
         # if label != "car":
         #     continue
 
@@ -83,11 +85,17 @@ def app_callback(element, buffer, user_data):
 
         track_id = get_track_id(detection)
 
+        print(f"track_id={track_id}")
+
         x1, x2 = get_bbox_x_positions(detection)
         center_x = get_center_x(x1, x2)
 
+        print(f"center_x={center_x}")
+
         direction, count = update_direction(center_x, track_id)
 
+        print(f"direction={direction}, count={count}")
+        
         if direction is not None:
             print(f"DEMO EVENT -> detected person, sending as car, direction={direction}, track_id={track_id}")
             post_event(
