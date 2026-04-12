@@ -70,25 +70,23 @@ def app_callback(element, buffer, user_data):
     detections = roi.get_objects_typed(hailo.HAILO_DETECTION)
 
     detection_count = 0
+    person_detected_this_frame = False
+
+    if not hasattr(user_data, "posted_tracks"):
+        user_data.posted_tracks = set()
 
     for detection in detections:
         label = detection.get_label()
         confidence = detection.get_confidence()
 
-        print(f"label={label}, confidence={confidence}")
-
         if label != PERSON_LABEL:
             continue
 
-        track_id = get_track_id(detection)
-        print(f"track_id={track_id}")
+        person_detected_this_frame = True
 
+        track_id = get_track_id(detection)
         x1, x2 = get_bbox_x_positions(detection)
         center_x = get_center_x(x1, x2)
-        print(f"center_x={center_x}")
-
-        if not hasattr(user_data, "posted_tracks"):
-            user_data.posted_tracks = set()
 
         if track_id not in user_data.posted_tracks:
             user_data.posted_tracks.add(track_id)
@@ -101,6 +99,9 @@ def app_callback(element, buffer, user_data):
             )
 
         detection_count += 1
+
+    if not person_detected_this_frame:
+        user_data.posted_tracks.clear()
 
     # for detection in detections:
     #     label = detection.get_label()
