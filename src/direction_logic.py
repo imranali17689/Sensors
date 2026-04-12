@@ -74,32 +74,17 @@ def update_direction(center_x, track_id):
     else:
         current_zone = "middle"
 
+    # First time we see this track — fire IN immediately
     if track_id not in zone_state:
         zone_state[track_id] = current_zone
         crossed[track_id] = False
-        return None, count
-
-    prev_zone = zone_state[track_id]
-
-    if prev_zone in ["left", "right"] and current_zone == "middle":
-        crossed[track_id] = True
-
-    elif prev_zone == "left" and crossed[track_id] and current_zone == "right":
         count += 1
         print(f"IN (+1) | Count: {count}")
-        zone_state.pop(track_id, None)
-        crossed.pop(track_id, None)
         return "IN", count
-
-    elif prev_zone == "right" and crossed[track_id] and current_zone == "left":
-        count = max(0, count - 1)
-        print(f"OUT (-1) | Count: {count}")
-        zone_state.pop(track_id, None)
-        crossed.pop(track_id, None)
-        return "OUT", count
 
     zone_state[track_id] = current_zone
     return None, count
+
 
 def get_count():
     return count
