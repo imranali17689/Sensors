@@ -242,7 +242,10 @@ def app_callback(element, buffer, user_data):
 
 
 def main():
-    from config import BACKEND_URL, ENABLE_POSTS
+    try:
+        from .config import BACKEND_URL, ENABLE_POSTS
+    except ImportError:
+        from config import BACKEND_URL, ENABLE_POSTS
     print(f"DEBUG: BACKEND_URL = '{BACKEND_URL}'")
     print(f"DEBUG: ENABLE_POSTS = {ENABLE_POSTS}")
     hailo_logger.info("Starting Detection App.")
