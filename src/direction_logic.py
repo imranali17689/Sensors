@@ -40,7 +40,7 @@ def update_direction(center_x, track_id):
 
     
     elif prev_zone == "right" and crossed[track_id] and current_zone == "left":
-        count -= 1
+        count = max(0, count -1)
         print(f"OUT (-1) | Count: {count}")
         zone_state.pop(track_id)
         crossed.pop(track_id)

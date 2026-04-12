@@ -17,7 +17,7 @@ def post_event(direction, track_id=None, object_type="car", confidence=0.0):
     payload = {
         "object_type": object_type,
         "direction": direction,
-        "confidence": confidence,
+        "confidence": float(confidence),
         "timestamp": datetime.utcnow().isoformat() + "Z",
         "track_id": str(track_id) if track_id is not None else None,
     }

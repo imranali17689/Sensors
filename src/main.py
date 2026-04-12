@@ -75,26 +75,47 @@ def app_callback(element, buffer, user_data):
         label = detection.get_label()
         confidence = detection.get_confidence()
 
-        if label != "car":
+        # if label != "car":
+        #     continue
+
+        if label != PERSON_LABEL:
             continue
 
-        if label == PERSON_LABEL:
-            x1, x2 = get_bbox_x_positions(detection)
-            center_x = get_center_x(x1, x2)
+        track_id = get_track_id(detection)
 
-            direction, count = update_direction(center_x, track_id)
+        x1, x2 = get_bbox_x_positions(detection)
+        center_x = get_center_x(x1, x2)
 
-            track_id = get_track_id(detection)
+        direction, count = update_direction(center_x, track_id)
 
-            if direction is not None:
-                post_event(
-                    direction=direction,
-                    track_id=track_id,
-                    object_type=label,
-                    confidence=confidence,
-                )
+        if direction is not None:
+            print(f"DEMO EVENT -> detected person, sending as car, direction={direction}, track_id={track_id}")
+            post_event(
+                direction=direction,
+                track_id=track_id,
+                object_type="car",   # pretend person is a car
+                confidence=confidence,
+            )
 
-            detection_count += 1
+        detection_count += 1
+
+        # if label == PERSON_LABEL:
+        #     x1, x2 = get_bbox_x_positions(detection)
+        #     center_x = get_center_x(x1, x2)
+
+        #     direction, count = update_direction(center_x, track_id)
+
+        #     track_id = get_track_id(detection)
+
+        #     if direction is not None:
+        #         post_event(
+        #             direction=direction,
+        #             track_id=track_id,
+        #             object_type=label,
+        #             confidence=confidence,
+        #         )
+
+        #     detection_count += 1
 
     if user_data.use_frame:
         cv2.putText(
