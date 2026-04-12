@@ -242,7 +242,9 @@ def app_callback(element, buffer, user_data):
 
 
 def main():
-    print("DEBUG: main started")
+    from config import BACKEND_URL, ENABLE_POSTS
+    print(f"DEBUG: BACKEND_URL = '{BACKEND_URL}'")
+    print(f"DEBUG: ENABLE_POSTS = {ENABLE_POSTS}")
     hailo_logger.info("Starting Detection App.")
     user_data = user_app_callback_class()
     app = GStreamerDetectionApp(app_callback, user_data)
