@@ -58,6 +58,8 @@ def app_callback(element, buffer, user_data):
         print("DEBUG: buffer is None")
         hailo_logger.warning("Received None buffer.")
         return
+    
+    print("DEBUG: buffer is not None")
 
     frame_idx = user_data.get_count()
 
@@ -71,6 +73,9 @@ def app_callback(element, buffer, user_data):
     roi = hailo.get_roi_from_buffer(buffer)
     detections = roi.get_objects_typed(hailo.HAILO_DETECTION)
 
+    print(f"DEBUG: detections found = {len(detections)}")
+
+
     detection_count = 0
     active_track_ids = set()
 
@@ -81,6 +86,7 @@ def app_callback(element, buffer, user_data):
     for detection in detections:
         label = detection.get_label()
         confidence = detection.get_confidence()
+        print(f"DEBUG: label={label}, confidence={confidence}")
 
         if label != PERSON_LABEL:
             continue
