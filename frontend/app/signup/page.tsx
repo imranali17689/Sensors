@@ -5,7 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import AuthFormCard from "@/components/auth/AuthFormCard";
 import AuthTextField from "@/components/auth/AuthTextField";
+import { formatAuthError } from "@/lib/authErrors";
 import { validateSignup } from "@/lib/authValidation";
+import { getSupabase } from "@/lib/supabase";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -38,16 +40,29 @@ export default function SignupPage() {
 
     setLoading(true);
     try {
-      // Mock: replace with fetch(`${API_BASE}/auth/signup`, { method: 'POST', ... })
-      await new Promise((r) => setTimeout(r, 800));
-      setSuccess("Account created successfully.");
+      const { error } = await getSupabase().auth.signUp({
+        email: email.trim(),
+        password,
+        options: {
+          data: { full_name: fullName.trim() },
+        },
+      });
+      if (error) {
+        setFormError(formatAuthError(error));
+        return;
+      }
+      setSuccess(
+        "Check your email for a confirmation link before signing in."
+      );
       setLoading(false);
       setTimeout(() => {
         router.push("/login");
         router.refresh();
-      }, 1600);
-    } catch {
-      setFormError("Something went wrong. Please try again.");
+      }, 2200);
+    } catch (err) {
+      setFormError(
+        err instanceof Error ? err.message : "Something went wrong. Please try again."
+      );
       setLoading(false);
     }
   }

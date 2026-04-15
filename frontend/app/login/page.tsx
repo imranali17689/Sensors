@@ -5,7 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import AuthFormCard from "@/components/auth/AuthFormCard";
 import AuthTextField from "@/components/auth/AuthTextField";
+import { formatAuthError } from "@/lib/authErrors";
 import { validateLogin } from "@/lib/authValidation";
+import { getSupabase } from "@/lib/supabase";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -27,12 +29,20 @@ export default function LoginPage() {
 
     setLoading(true);
     try {
-      // Mock: replace with fetch(`${API_BASE}/auth/login`, { method: 'POST', ... })
-      await new Promise((r) => setTimeout(r, 700));
+      const { error } = await getSupabase().auth.signInWithPassword({
+        email: email.trim(),
+        password,
+      });
+      if (error) {
+        setFormError(formatAuthError(error));
+        return;
+      }
       router.push("/");
       router.refresh();
-    } catch {
-      setFormError("Something went wrong. Please try again.");
+    } catch (err) {
+      setFormError(
+        err instanceof Error ? err.message : "Something went wrong. Please try again."
+      );
     } finally {
       setLoading(false);
     }
