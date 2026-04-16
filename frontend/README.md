@@ -29,6 +29,26 @@ Open [http://localhost:3000](http://localhost:3000).
   - `data.ts` — Mock garage data; replace with API calls later
   - `utils.ts` — `getAvailablePercent`, `getStatus`, `formatTime`
 
+## Environment setup
+
+### Local
+
+Create `frontend/.env.local` and add:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+### Vercel
+
+In the Vercel project settings for this frontend, add these environment variables for both `Preview` and `Production`:
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+After changing Vercel environment variables, trigger a redeploy so the new values are available to the app.
+
 ## Connecting a backend
 
 - Swap `getGarageData(selectedGarage)` in `app/page.tsx` for a `fetch` (or React Query) to your API.
