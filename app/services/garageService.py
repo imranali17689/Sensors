@@ -1,6 +1,11 @@
 from app.database.supabaseClient import getSupabase
 
+
 def getGrandStudentParking():
+    """
+    Live Grand student row from Supabase `garage_status` (garage_name=Grand,
+    parking_type=student). No hardcoded occupancy — values come from the DB.
+    """
     supabase = getSupabase()
 
     response = (

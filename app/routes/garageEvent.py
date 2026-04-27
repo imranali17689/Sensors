@@ -12,9 +12,20 @@ router = APIRouter()
 supabase = getSupabase()
 
 
+def _grand_student_from_db():
+    """
+    Single source for Grand student occupancy JSON.
+
+    Reads the Grand + student row from Supabase `garage_status` (same query as
+    service layer). Both GET /status and GET /garage-status/grand/student must
+    call this so the frontend and any clients stay in sync.
+    """
+    return getGrandStudentParking()
+
+
 @router.get("/status")
 def callStatus():
-    return getGrandStudentParking()
+    return _grand_student_from_db()
 
 
 @router.post("/event")
@@ -35,4 +46,4 @@ def recievesEvent(event: SensorEvent):
 
 @router.get("/garage-status/grand/student")
 def read_grand_student_status():
-    return getGrandStudentParking()
+    return _grand_student_from_db()
