@@ -11,25 +11,36 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+### Environment variables
+
+Create `frontend/.env.local`:
+
+```env
+# Backend API (live Grand student counts)
+NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
+
+# Supabase Auth (browser — use the anon key only)
+NEXT_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+```
+
+For Vercel, add the same variables (`NEXT_PUBLIC_*`) on the frontend project.
+
+## Authentication
+
+Email/password auth uses Supabase Auth from the browser (`@supabase/supabase-js`). Routes:
+
+- `/login` — sign in with email and password
+- `/signup` — register with full name, email, password
+
+The dashboard live parking fetch (`getGarageStatus` / `NEXT_PUBLIC_API_URL`) is unchanged and does not go through Supabase for parking data.
+
 ## Project layout
 
 - **`app/`** — Next.js App Router
-  - `layout.tsx` — Root layout and metadata
-  - `page.tsx` — Dashboard page (garage state, tabs, parking cards)
+  - `layout.tsx` — Root layout, fonts, global `AuthProvider`
+  - `page.tsx` — Dashboard (live Grand student row + mock where applicable)
+  - `login/page.tsx`, `signup/page.tsx` — auth screens
   - `globals.css` — Tailwind and CSS variables (e.g. UT red, page background)
-- **`components/`** — React components
-  - `HeaderCard.tsx` — Logo, title, subtitle, tagline
-  - `GarageTabs.tsx` — Grand / Sykes / West tab selector
-  - `ParkingCard.tsx` — Reusable student/faculty card (icon, status, count, progress bar)
-  - `StatusBadge.tsx` — “Available” / “Nearly full” / “Full” pill
-  - `LastUpdatedCard.tsx` — “Last Updated: …” with clock icon
-  - `TrendsButton.tsx` — “View Parking Trends” CTA
-- **`lib/`** — Data and helpers
-  - `types.ts` — `Garage`, `GarageId`, `ParkingCounts`, `ParkingStatus`
-  - `data.ts` — Mock garage data; replace with API calls later
-  - `utils.ts` — `getAvailablePercent`, `getStatus`, `formatTime`
-
-## Connecting a backend
-
-- Swap `getGarageData(selectedGarage)` in `app/page.tsx` for a `fetch` (or React Query) to your API.
-- Optionally add polling or Supabase real-time so “Last Updated” and counts stay in sync.
+- **`components/`** — UI including `auth/` for Supabase session UI
+- **`lib/`** — Data helpers, `supabase.ts` client, validation and auth error helpers
