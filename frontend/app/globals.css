@@ -5,37 +5,41 @@
 :root {
   --ut-red: #c8102e;
   --ut-navy: #0f1419;
-  --ut-page: #f3f4f6;
-  --ut-page-highlight: #fafafa;
+  /* Warm, light rose-tinted canvas — reads less “clinical” than flat gray */
+  --ut-page: #faf6f6;
+  --ut-page-highlight: #fffbfb;
 }
 
 body {
   min-height: 100vh;
   background-color: var(--ut-page);
-  /* Soft radial highlight + neutral vertical wash — subtle, official */
   background-image:
     radial-gradient(
-      ellipse 100% 55% at 50% -8%,
-      rgba(200, 16, 46, 0.045),
-      transparent 58%
+      ellipse 120% 70% at 50% -15%,
+      rgba(200, 16, 46, 0.07),
+      transparent 55%
     ),
     radial-gradient(
-      ellipse 80% 40% at 100% 100%,
-      rgba(15, 20, 25, 0.03),
+      ellipse 90% 50% at 110% 20%,
+      rgba(200, 16, 46, 0.04),
+      transparent 45%
+    ),
+    radial-gradient(
+      ellipse 70% 45% at -10% 85%,
+      rgba(15, 20, 25, 0.025),
       transparent 50%
     ),
     linear-gradient(
       180deg,
       var(--ut-page-highlight) 0%,
-      #f5f5f6 38%,
-      #f0f1f3 72%,
-      #eceef0 100%
+      #faf7f7 42%,
+      #f6f1f1 100%
     );
 }
 
 @layer utilities {
   .focus-ring-ut {
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ut-red focus-visible:ring-offset-2;
-    --tw-ring-offset-color: #f3f4f6;
+    --tw-ring-offset-color: var(--ut-page);
   }
 }

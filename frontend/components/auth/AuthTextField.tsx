@@ -35,7 +35,7 @@ export default function AuthTextField({
         value={value}
         disabled={disabled}
         onChange={(e) => onChange(e.target.value)}
-        className="focus-ring-ut rounded-lg border border-ut-border bg-white px-3 py-2.5 text-sm text-gray-900 shadow-sm outline-none transition placeholder:text-gray-400 disabled:opacity-60"
+        className="focus-ring-ut rounded-xl border border-gray-200/90 bg-white/95 px-3.5 py-3 text-sm text-gray-900 shadow-soft outline-none ring-1 ring-black/[0.02] transition placeholder:text-gray-400 focus:border-ut-red/30 disabled:opacity-60"
       />
       {error ? (
         <p className="text-xs font-medium text-red-600" role="alert">

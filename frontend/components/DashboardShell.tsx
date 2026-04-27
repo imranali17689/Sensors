@@ -1,5 +1,5 @@
 /**
- * Shared outer layout for dashboard and trends — matches max-width and page padding.
+ * Shared outer layout — centered narrow app column (mobile-dashboard style).
  */
 export default function DashboardShell({
   children,
@@ -7,8 +7,8 @@ export default function DashboardShell({
   children: React.ReactNode;
 }) {
   return (
-    <main className="flex min-h-screen flex-col items-center px-4 py-8 pb-14 sm:px-6 sm:py-10 md:py-12">
-      <div className="flex w-full max-w-dashboard flex-col gap-6 sm:gap-7 md:max-w-dashboard-md md:gap-7 lg:max-w-dashboard-lg lg:gap-8 xl:max-w-dashboard-xl">
+    <main className="flex min-h-screen flex-col items-center px-4 pb-16 pt-6 sm:px-5 sm:pb-20 sm:pt-8 md:pt-10">
+      <div className="animate-page-in flex w-full max-w-dashboard flex-col gap-5 sm:max-w-dashboard-md sm:gap-6 md:max-w-dashboard-lg lg:max-w-dashboard-xl lg:gap-7">
         {children}
       </div>
     </main>

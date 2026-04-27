@@ -72,7 +72,7 @@ export default function DashboardPage() {
         selectedGarage={selectedGarage}
         onSelect={handleGarageSelect}
       />
-      <div className="flex flex-col gap-4 sm:gap-5">
+      <div className="flex flex-col gap-3.5 sm:gap-4">
         <ParkingCard
           title="Student Parking"
           counts={studentCounts}
@@ -84,11 +84,9 @@ export default function DashboardPage() {
           accentColor="navy"
         />
       </div>
-      <div className="rounded-xl border border-ut-border bg-white/90 p-4 shadow-card backdrop-blur-sm sm:p-5">
+      <div className="flex flex-col gap-4">
         <LastUpdatedCard timeString={lastUpdatedString} />
-        <div className="mt-4">
-          <TrendsButton />
-        </div>
+        <TrendsButton />
       </div>
     </DashboardShell>
   );

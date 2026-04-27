@@ -77,7 +77,7 @@ export default function SignupPage() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center px-4 py-12">
+    <main className="flex min-h-screen flex-col items-center justify-center px-4 py-10 sm:px-5 sm:py-14">
       <AuthFormCard title="Create account" subtitle="OpenSpot Parking · University of Tampa">
         <form className="flex flex-col gap-5" onSubmit={handleSubmit} noValidate>
           <AuthTextField
@@ -138,7 +138,7 @@ export default function SignupPage() {
           <button
             type="submit"
             disabled={submitting || !!successMessage}
-            className="focus-ring-ut rounded-lg bg-ut-red px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-ut-red-dark disabled:opacity-60"
+            className="focus-ring-ut rounded-xl bg-ut-red px-4 py-3.5 text-sm font-semibold text-white shadow-[0_3px_12px_rgba(200,16,46,0.35)] transition hover:bg-ut-red-dark active:translate-y-px disabled:opacity-60"
           >
             {submitting ? "Creating account…" : "Sign up"}
           </button>

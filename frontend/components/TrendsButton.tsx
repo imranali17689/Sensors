@@ -12,7 +12,7 @@ export default function TrendsButton() {
   if (loading) {
     return (
       <div
-        className="h-[3.25rem] w-full rounded-lg border border-ut-border/50 bg-gray-50/80 shadow-sm"
+        className="h-[3.5rem] w-full rounded-2xl border border-white/70 bg-white/50 shadow-soft ring-1 ring-black/[0.03]"
         aria-hidden
       />
     );
@@ -20,22 +20,22 @@ export default function TrendsButton() {
 
   if (!user) {
     return (
-      <div className="rounded-xl border border-ut-border bg-white/95 p-4 shadow-card">
-        <p className="text-center text-sm font-medium text-gray-800">
+      <div className="rounded-2xl border border-white/85 bg-white/95 p-5 shadow-card ring-1 ring-black/[0.04]">
+        <p className="text-center text-sm font-semibold text-gray-900">
           Sign up to view parking trends.
         </p>
-        <p className="mt-1 text-center text-xs text-ut-muted">
-          Create an account for historical parking insights.
+        <p className="mt-1 text-center text-xs leading-relaxed text-ut-muted">
+          Unlock historical occupancy patterns and predictions.
         </p>
         <Link
           href="/signup"
-          className="focus-ring-ut mt-4 flex w-full items-center justify-center rounded-lg border border-ut-red/25 bg-ut-red px-4 py-3 text-[0.9375rem] font-semibold text-white shadow-[0_1px_2px_rgba(15,20,25,0.06)] transition-all duration-150 hover:border-ut-red-dark hover:bg-ut-red-dark hover:shadow-md active:translate-y-px active:bg-[#8F0B22]"
+          className="focus-ring-ut mt-5 flex w-full items-center justify-center rounded-xl bg-ut-red px-4 py-3.5 text-[0.9375rem] font-semibold text-white shadow-[0_3px_12px_rgba(200,16,46,0.35)] transition hover:bg-ut-red-dark active:translate-y-px"
         >
           Sign up to continue
         </Link>
         <Link
           href="/login"
-          className="mt-2 block text-center text-sm font-semibold text-ut-red hover:underline"
+          className="mt-3 block text-center text-sm font-semibold text-ut-red underline-offset-2 hover:underline"
         >
           Already have an account? Sign in
         </Link>
@@ -46,7 +46,7 @@ export default function TrendsButton() {
   return (
     <Link
       href="/trends"
-      className="focus-ring-ut flex w-full items-center justify-center rounded-lg border border-ut-red/25 bg-ut-red px-4 py-3 text-[0.9375rem] font-semibold text-white shadow-[0_1px_2px_rgba(15,20,25,0.06)] transition-all duration-150 hover:border-ut-red-dark hover:bg-ut-red-dark hover:shadow-md active:translate-y-px active:bg-[#8F0B22]"
+      className="focus-ring-ut flex w-full items-center justify-center rounded-xl border border-ut-red/20 bg-ut-red px-4 py-3.5 text-[0.9375rem] font-semibold text-white shadow-[0_3px_14px_rgba(200,16,46,0.38)] transition hover:bg-ut-red-dark hover:shadow-[0_4px_18px_rgba(200,16,46,0.42)] active:translate-y-px"
     >
       View parking trends
     </Link>

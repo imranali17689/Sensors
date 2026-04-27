@@ -6,38 +6,42 @@ type HeaderCardProps = {
 };
 
 /**
- * Top header card: logo, title, subtitle, tagline, and optional auth actions.
+ * Compact branded header with UT badge, titles, and auth actions.
  */
 export default function HeaderCard({ showAuthNav = true }: HeaderCardProps) {
   return (
-    <header className="relative overflow-hidden rounded-xl border border-ut-border bg-white shadow-card">
+    <header className="relative overflow-hidden rounded-2xl border border-white/70 bg-white/95 shadow-card ring-1 ring-black/[0.04] backdrop-blur-sm">
       <div
-        className="absolute left-0 top-0 h-full w-[3px] bg-ut-red"
+        className="absolute left-0 top-0 h-full w-[3px] rounded-l-2xl bg-ut-red"
         aria-hidden
       />
-      <div className="flex flex-col gap-4 px-5 py-[1.125rem] pl-[1.375rem] sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6 sm:py-5 sm:pl-6">
-        <div className="flex min-w-0 flex-1 items-center gap-5 sm:gap-6">
-          <div className="flex flex-shrink-0 items-center justify-center self-center">
+      <div className="flex flex-col gap-3 px-4 pb-4 pl-[calc(1rem+3px)] pt-4 sm:flex-row sm:items-start sm:justify-between sm:gap-4 sm:px-5 sm:pb-4 sm:pt-4 sm:pl-[calc(1.25rem+3px)]">
+        <div className="flex min-w-0 flex-1 gap-3.5 sm:gap-4">
+          <div className="flex flex-shrink-0 items-start pt-0.5">
             <div
-              className="flex h-[3.5rem] w-[3.5rem] items-center justify-center rounded-[10px] border border-ut-red/12 bg-ut-red text-[1rem] font-bold tracking-tight text-white shadow-[0_1px_2px_rgba(15,20,25,0.08)] sm:h-[3.625rem] sm:w-[3.625rem]"
+              className="flex h-11 w-11 items-center justify-center rounded-xl bg-ut-red text-[0.9375rem] font-bold tracking-tight text-white shadow-[0_2px_8px_rgba(200,16,46,0.35)] ring-2 ring-white/40 sm:h-12 sm:w-12 sm:text-base"
               aria-hidden
             >
               UT
             </div>
           </div>
-          <div className="min-w-0 flex-1 border-l border-gray-100/90 pl-5 sm:pl-6">
-            <p className="text-[0.625rem] font-semibold uppercase leading-none tracking-[0.14em] text-gray-500">
-              University of Tampa
-            </p>
-            <h1 className="mt-2 text-[1.3125rem] font-semibold leading-[1.2] tracking-[-0.02em] text-gray-900 sm:text-[1.375rem]">
+          <div className="min-w-0 flex-1 space-y-0.5 pt-0.5">
+            <h1 className="text-[1.125rem] font-bold leading-snug tracking-tight text-gray-900 sm:text-[1.25rem]">
               OpenSpot Parking
             </h1>
-            <p className="mt-1.5 text-[0.8125rem] leading-snug text-ut-muted sm:text-sm">
+            <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-gray-500">
+              University of Tampa
+            </p>
+            <p className="text-[0.8125rem] leading-snug text-ut-muted sm:text-sm">
               Real-time parking availability
             </p>
           </div>
         </div>
-        {showAuthNav ? <AuthNav /> : null}
+        {showAuthNav ? (
+          <div className="flex shrink-0 justify-end sm:pt-0.5">
+            <AuthNav />
+          </div>
+        ) : null}
       </div>
     </header>
   );

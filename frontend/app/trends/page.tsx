@@ -26,7 +26,10 @@ export default function TrendsPage() {
     return (
       <DashboardShell>
         <HeaderCard />
-        <div className="h-48 rounded-xl border border-ut-border bg-white/80 shadow-card" aria-hidden />
+        <div
+          className="h-48 rounded-2xl border border-white/80 bg-white/70 shadow-soft ring-1 ring-black/[0.03]"
+          aria-hidden
+        />
       </DashboardShell>
     );
   }
@@ -35,21 +38,21 @@ export default function TrendsPage() {
     return (
       <DashboardShell>
         <HeaderCard />
-        <div className="rounded-xl border border-ut-border bg-white p-6 shadow-card sm:p-8">
-          <h2 className="text-lg font-semibold text-gray-900">Parking trends</h2>
-          <p className="mt-2 text-sm text-ut-muted">
+        <div className="rounded-2xl border border-white/85 bg-white/95 p-6 shadow-card ring-1 ring-black/[0.04] sm:p-8">
+          <h2 className="text-lg font-bold text-gray-900">Parking trends</h2>
+          <p className="mt-2 text-sm leading-relaxed text-ut-muted">
             Sign in to view historical parking trends and predictions.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/login"
-              className="focus-ring-ut inline-flex items-center justify-center rounded-lg border border-ut-border bg-white px-4 py-3 text-sm font-semibold text-gray-800 shadow-sm transition hover:border-ut-red/35"
+              className="focus-ring-ut inline-flex flex-1 items-center justify-center rounded-xl border border-gray-200/95 bg-white px-4 py-3.5 text-sm font-semibold text-gray-900 shadow-soft transition hover:border-ut-red/35"
             >
               Sign in
             </Link>
             <Link
               href="/signup"
-              className="focus-ring-ut inline-flex items-center justify-center rounded-lg bg-ut-red px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-ut-red-dark"
+              className="focus-ring-ut inline-flex flex-1 items-center justify-center rounded-xl bg-ut-red px-4 py-3.5 text-sm font-semibold text-white shadow-[0_3px_12px_rgba(200,16,46,0.35)] transition hover:bg-ut-red-dark"
             >
               Sign up
             </Link>
@@ -73,7 +76,7 @@ export default function TrendsPage() {
           description={trends.bestTimeDescription}
         />
       </div>
-      <div className="rounded-xl border border-ut-border bg-white/90 p-4 shadow-card backdrop-blur-sm sm:p-5">
+      <div className="rounded-2xl border border-white/85 bg-white/95 p-4 shadow-card ring-1 ring-black/[0.03] backdrop-blur-[2px] sm:p-5">
         <BackToLiveParkingButton />
       </div>
     </DashboardShell>
