@@ -13,13 +13,16 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+allow_origins=[
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://sensors-ivory.vercel.app",
+    "https://sensors-git-main-imranali17689s-projects.vercel.app",
+],
+allow_origin_regex=r"https://sensors-git-.*-imranali17689s-projects\.vercel\.app",
+allow_credentials=True,
+allow_methods=["*"],
+allow_headers=["*"],
 )
 
 app.include_router(garage_router)
