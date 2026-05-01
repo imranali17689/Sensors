@@ -5,6 +5,10 @@ from app.database.supabaseClient import getSupabase
 
 from app.routes.garageEvent import router as garage_router
 
+from app.routes.temperature import router as temperature_router
+
+app.include_router(temperature_router)
+
 app = FastAPI(
   title = "OpenSpot Backend API", 
   description = "Backend service for sensor ingestion and parking status",
