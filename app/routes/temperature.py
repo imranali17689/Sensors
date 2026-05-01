@@ -1,33 +1,33 @@
-from flask import Blueprint, request, jsonify
-from supabase import create_client
-import os
+from datetime import datetime
+from fastapi import APIRouter
 
-temperature_bp = Blueprint("temperature", __name__)
+from app.database.supabaseClient import getSupabase
+from app.models.temperature import TemperatureReading
 
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+router = APIRouter()
+supabase = getSupabase()
 
-supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-@temperature_bp.route("/temperature", methods=["POST"])
-def receive_temperature():
-    data = request.json
+@router.post("/temperature")
+def receive_temperature(data: TemperatureReading):
+    """
+    Receives temperature data from the Raspberry Pi and stores it in Supabase.
+    """
 
-    name = data.get("name")
-    temp = data.get("temperature")
-    timestamp = data.get("timestamp")
-
-    if not name or temp is None:
-        return jsonify({"error": "Missing data"}), 400
+    # Ensure timestamp exists
+    if data.timestamp is None:
+        data.timestamp = datetime.utcnow()
 
     try:
-        supabase.table("camera").insert({
-            "name": name,
-            "temperature": temp,
-            "updated_at": timestamp
-        }).execute()
+        supabase.table("camera").insert(
+            {
+                "name": data.name,
+                "temperature": data.temperature,
+                "updated_at": data.timestamp.isoformat(),
+            }
+        ).execute()
 
-        return jsonify({"status": "success"}), 200
+        return {"status": "success"}
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return {"error": str(e)}
