@@ -1,5 +1,5 @@
 from datetime import datetime
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 
 from app.database.supabaseClient import getSupabase
 from app.models.temperature import TemperatureReading
@@ -13,21 +13,16 @@ def receive_temperature(data: TemperatureReading):
     """
     Receives temperature data from the Raspberry Pi and stores it in Supabase.
     """
-
-    # Ensure timestamp exists
     if data.timestamp is None:
         data.timestamp = datetime.utcnow()
 
     try:
-        supabase.table("camera").insert(
-            {
-                "name": data.name,
-                "temperature": data.temperature,
-                "updated_at": data.timestamp.isoformat(),
-            }
-        ).execute()
-
-        return {"status": "success"}
-
+        supabase.table("camera").insert({
+            "name": data.name,
+            "temperature": data.temperature,
+            "updated_at": data.timestamp.isoformat(),
+        }).execute()
     except Exception as e:
-        return {"error": str(e)}
+        raise HTTPException(status_code=500, detail=str(e))
+
+    return {"status": "success"}
