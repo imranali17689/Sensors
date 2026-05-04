@@ -1,4 +1,14 @@
-capstone@GarageCam:~ $ type openspot
-openspot is aliased to `source ~/hailo-apps/venv_hailo_apps/bin/activate && cd ~/OpenSpot'
-capstone@GarageCam:~ $ type runspot --input rpi
-runspot is aliased to `source ~/hailo-apps/venv_hailo_apps/bin/activate && cd ~/OpenSpot && python -m  src.main'
+[Unit]
+Description=OpenSpot
+After=network.target
+
+[Service]
+User=capstone
+WorkingDirectory=/home/capstone/OpenSpot
+ExecStart=/bin/bash -lc 'source /home/capstone/hailo-apps/venv_hailo_apps/bin/activate && cd /home/capstone/OpenSpot && python -m src.main --input rpi'
+Restart=always
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
